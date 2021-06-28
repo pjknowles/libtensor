@@ -482,7 +482,7 @@ if(WITH_TIMINGS)
     target_compile_definitions(tensor_core PUBLIC LIBTENSOR_TIMINGS)
 endif(WITH_TIMINGS)
 target_compile_definitions(tensor_core PRIVATE LIBDIVIDE_HAS_STDINT_TYPES)
-target_include_directories(tensor_core PUBLIC "${LIBTENSOR_SOURCE_DIR}")
+target_include_directories(tensor_core PUBLIC $<BUILD_INTERFACE:${LIBTENSOR_SOURCE_DIR}> $<INSTALL_INTERFACE:include/tensor>)
 target_link_libraries(tensor_core util)
 if(TARGET vmm)
     target_link_libraries(tensor_core vmm)
@@ -528,3 +528,14 @@ if(QCHEM_SOURCE_DIR)
     target_link_libraries(tensor_qchem tensor_core)
     target_link_libraries(tensor_bto2 libmdc_thr)
 endif(QCHEM_SOURCE_DIR)
+install(TARGETS tensor tensor_bto1 tensor_bto2 tensor_bto3 tensor_core tensor_dto tensor_so util EXPORT tensor-targets
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        INCLUDES DESTINATION include
+        )
+install(EXPORT tensor-targets
+        FILE
+        tensorTargets.cmake
+        DESTINATION
+        lib/cmake/tensor
+        )
