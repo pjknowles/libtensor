@@ -528,7 +528,7 @@ if(QCHEM_SOURCE_DIR)
     target_link_libraries(tensor_qchem tensor_core)
     target_link_libraries(tensor_bto2 libmdc_thr)
 endif(QCHEM_SOURCE_DIR)
-install(TARGETS tensor tensor_bto1 tensor_bto2 tensor_bto3 tensor_core tensor_dto tensor_so util EXPORT tensor-targets
+install(TARGETS tensor tensor_bto1 tensor_bto2 tensor_bto3 tensor_core tensor_dto tensor_so EXPORT tensor-targets
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
         INCLUDES DESTINATION include
