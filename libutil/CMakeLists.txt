@@ -44,3 +44,13 @@ include_directories(${LIBUTIL_DIR})
 
 set_target_properties(util PROPERTIES
     COMPILE_DEFINITIONS $<$<CONFIG:Debug>:LIBUTIL_DEBUG>)
+install(TARGETS util EXPORT util-targets
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        INCLUDES DESTINATION include)
+install(EXPORT util-targets
+        FILE
+        utilTargets.cmake
+        DESTINATION
+        lib/cmake/util
+        )
