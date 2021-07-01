@@ -45,3 +45,45 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     add_subdirectory(tests)
 endif()
 #add_subdirectory(performance_tests)
+
+if (LIBTENSOR_STANDALONE)
+    install(
+            TARGETS tensor util tensor_bto1 tensor_bto2 tensor_bto3 tensor_core tensor_dto tensor_so
+            EXPORT libtensorTargets
+            LIBRARY DESTINATION lib
+            ARCHIVE DESTINATION lib
+            INCLUDES DESTINATION include/libtensor
+            PUBLIC_HEADER DESTINATION include/libtensor
+    )
+    install(
+            DIRECTORY libtensor/
+            DESTINATION include/libtensor
+            FILES_MATCHING PATTERN "*.h"
+    )
+    install(
+            DIRECTORY libutil/
+            DESTINATION include/libtensor/libutil
+            FILES_MATCHING PATTERN "*.h"
+    )
+    install(
+            EXPORT libtensorTargets
+            FILE libtensorTargets.cmake
+            NAMESPACE libtensor::
+            DESTINATION lib/cmake/libtensor
+    )
+    include(CmakePackageConfigHelpers)
+    write_basic_package_version_file(
+            "libtensorConfigVersion.cmake"
+            VERSION 0.0.0
+            COMPATIBILITY SameMajorVersion
+    )
+    configure_package_config_file(
+            ${CMAKE_CURRENT_SOURCE_DIR}/libtensorConfig.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/libtensorConfig.cmake"
+            INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/libtensor
+    )
+    install(
+            FILES "${CMAKE_CURRENT_BINARY_DIR}/libtensorConfig.cmake" "${CMAKE_CURRENT_BINARY_DIR}/libtensorConfigVersion.cmake"
+            DESTINATION lib/cmake/libtensor
+    )
+
+endif ()
