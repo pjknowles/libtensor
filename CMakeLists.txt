@@ -71,7 +71,7 @@ if (LIBTENSOR_STANDALONE)
             NAMESPACE libtensor::
             DESTINATION lib/cmake/libtensor
     )
-    include(CmakePackageConfigHelpers)
+    include(CMakePackageConfigHelpers)
     write_basic_package_version_file(
             "libtensorConfigVersion.cmake"
             VERSION 0.0.0
